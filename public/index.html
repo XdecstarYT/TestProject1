@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WorldSmith — AI World Designer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">🗺️</span>
+        <div>
+          <h1>WorldSmith</h1>
+          <p class="tagline">Design houses, cities &amp; roads in your own fictional worlds</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <span id="ai-status" class="badge" title="AI status">checking…</span>
+        <button id="btn-new" class="btn">New</button>
+        <button id="btn-save" class="btn">Save</button>
+        <button id="btn-load" class="btn">Load</button>
+        <button id="btn-export" class="btn">Export</button>
+        <button id="btn-png" class="btn">PNG</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="palette">
+        <h2>Tiles</h2>
+        <div id="tile-palette" class="tile-grid"></div>
+
+        <h2>Tools</h2>
+        <div class="tool-row">
+          <button class="tool" data-tool="brush" title="Paint (B)">🖌️ Brush</button>
+          <button class="tool" data-tool="line" title="Line / road (L)">📏 Line</button>
+          <button class="tool" data-tool="rect" title="Rectangle (R)">▭ Rect</button>
+          <button class="tool" data-tool="fill" title="Flood fill (F)">🪣 Fill</button>
+          <button class="tool" data-tool="erase" title="Erase (E)">🧽 Erase</button>
+        </div>
+        <label class="slider">
+          Brush size <span id="brush-size-val">1</span>
+          <input id="brush-size" type="range" min="1" max="6" value="1" />
+        </label>
+      </aside>
+
+      <section class="stage">
+        <div class="canvas-wrap">
+          <canvas id="map" width="40" height="28"></canvas>
+        </div>
+        <div class="stage-footer">
+          <span id="hover-coords">—</span>
+          <span class="spacer"></span>
+          <label>
+            Grid
+            <select id="grid-size">
+              <option value="32x20">32 × 20 (town)</option>
+              <option value="40x28" selected>40 × 28 (city)</option>
+              <option value="60x40">60 × 40 (metropolis)</option>
+            </select>
+          </label>
+          <button id="btn-clear" class="btn btn-ghost">Clear</button>
+        </div>
+      </section>
+
+      <aside class="ai-panel">
+        <h2>✨ AI Designer</h2>
+        <p class="hint">
+          Describe a place and let WorldSmith lay out the roads, houses, and
+          districts for you.
+        </p>
+        <textarea
+          id="ai-prompt"
+          rows="4"
+          placeholder="e.g. A cliffside fishing village with a harbor, a winding main road, and a lighthouse on the point"
+        ></textarea>
+        <div class="ai-buttons">
+          <button id="btn-generate" class="btn btn-primary">Generate world</button>
+          <label class="checkbox">
+            <input id="generate-clear" type="checkbox" checked /> clear first
+          </label>
+        </div>
+        <div class="chip-row" id="example-chips"></div>
+
+        <hr />
+
+        <button id="btn-describe" class="btn">📖 Write lore for my map</button>
+        <div id="lore" class="lore"></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
