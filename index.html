@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roomie ✨ AI Room Glow-Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧹</text></svg>" />
+</head>
+<body>
+  <!-- floating doodles -->
+  <div class="doodles" aria-hidden="true">
+    <span class="doodle d1">🧺</span>
+    <span class="doodle d2">🪴</span>
+    <span class="doodle d3">🧸</span>
+    <span class="doodle d4">🛏️</span>
+    <span class="doodle d5">✨</span>
+    <span class="doodle d6">🧴</span>
+  </div>
+
+  <main class="app">
+    <header class="hero">
+      <h1 class="title">Roomie <span class="sparkle">✨</span></h1>
+      <p class="subtitle">Snap your room. Get a tidiness score &amp; a cozy glow-up plan.</p>
+    </header>
+
+    <!-- API key card -->
+    <section class="card key-card" id="keyCard">
+      <label class="key-label" for="apiKey">🔑 Your Anthropic API key</label>
+      <div class="key-row">
+        <input
+          type="password"
+          id="apiKey"
+          class="key-input"
+          placeholder="sk-ant-..."
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button class="btn ghost" id="toggleKey" type="button" title="Show / hide">👁️</button>
+      </div>
+      <p class="key-hint">
+        Stored only in this browser tab. Get one at
+        <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>.
+      </p>
+      <label class="remember">
+        <input type="checkbox" id="rememberKey" /> remember on this device
+      </label>
+    </section>
+
+    <!-- upload card -->
+    <section class="card upload-card">
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload a room photo">
+        <img id="preview" class="preview hidden" alt="Your room preview" />
+        <div class="dropzone-empty" id="dropEmpty">
+          <div class="drop-emoji">📸</div>
+          <p class="drop-title">Drop a room photo here</p>
+          <p class="drop-sub">or tap to choose a picture</p>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" class="hidden" />
+      </div>
+
+      <button class="btn primary big" id="analyzeBtn" disabled>
+        <span class="btn-label">Analyze my room</span> 🪄
+      </button>
+      <p class="error hidden" id="errorMsg"></p>
+    </section>
+
+    <!-- loading -->
+    <section class="loader hidden" id="loader">
+      <div class="bubble-loader">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="loader-text" id="loaderText">Peeking into your room…</p>
+    </section>
+
+    <!-- results -->
+    <section class="results hidden" id="results">
+      <div class="card score-card">
+        <div class="score-ring" id="scoreRing">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="score-center">
+            <span class="score-num" id="scoreNum">0</span>
+            <span class="score-max">/100</span>
+          </div>
+        </div>
+        <div class="score-meta">
+          <div class="rank-badge" id="rankBadge">—</div>
+          <p class="vibe" id="vibe"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-h">🎨 Category vibes</h2>
+        <div class="categories" id="categories"></div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-h">🌟 Your glow-up plan</h2>
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+
+      <button class="btn ghost big" id="againBtn">Try another room 🔄</button>
+    </section>
+
+    <footer class="footer">
+      made with 💖 &amp; Claude vision · keep your space cozy
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
